@@ -1,0 +1,58 @@
+#version 330
+
+in vec3 vertPos;
+in vec2 TexCoord;
+in vec3 norm;
+
+const vec3 spotLightDir = normalize(-vec3(1.0, 3.0, 1.0)); // Spot light direction
+const float spotLightCutoff = cos(radians(30.0));
+const float pointLightAttenuation = 0.0; 
+const vec3 lightColor = vec3(1.0, 1.0, 1.0);
+
+uniform vec3 material_ambiColor;  
+uniform vec3 material_diffColor;
+uniform vec3 material_specColor;
+uniform float material_shininess;
+uniform vec3 pointLightPosition;
+uniform vec3 spotLightPosition;
+
+uniform sampler2D texture_1;
+uniform sampler2D texture_2;
+
+void main() {
+    float diffDir = 0.0;
+    vec3 bump = 2.0 * mix(texture(texture_1, TexCoord).rgb, texture(texture_2, TexCoord).rgb, 0.5) - 1.0;
+    vec3 normal = normalize(norm + bump);
+    vec3 spotLightDirection = normalize(spotLightPosition - vertPos);
+    vec3 lightDir = normalize(spotLightDir);
+    float theta = dot(-spotLightDirection, normalize(spotLightDir));
+
+    if (theta > spotLightCutoff) {
+    diffDir = max(dot(lightDir, normal), 0.0);
+    }
+    // Point light
+    vec3 viewDir = normalize(vertPos - pointLightPosition);
+    float distanceToPoint = length(vertPos - pointLightPosition);
+    float attenuation = 1.0 / (1.0 + pointLightAttenuation * distanceToPoint * distanceToPoint);
+    float diffPoint = max(dot(viewDir, normal), 0.0);
+
+    // ambient
+    float ambientStrength = 0.1;
+    vec3 ambient = material_ambiColor * lightColor;
+
+    // diffuse
+    vec3 diffuse = (diffDir + diffPoint * attenuation) * lightColor * material_diffColor;
+
+    // specular
+    float specularStrength = 0.5;
+    float specular = 0.0;
+    if (diffDir > 0.0 || diffPoint > 0.0) {
+        vec3 viewDir = normalize(-vertPos);
+        vec3 halfDir = normalize(lightDir + viewDir);
+        float spec = pow(max(dot(halfDir, normal), 0.0), material_shininess);
+        vec3 specular = specularStrength * spec * lightColor * material_specColor;  
+    }
+
+    // final color
+    gl_FragColor = vec4((ambient + diffuse + specular) * mix(texture(texture_1, TexCoord).rgb, texture(texture_2, TexCoord).rgb, 0.5), 1.0);
+}

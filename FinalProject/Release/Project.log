@@ -1,0 +1,16 @@
+﻿  main.cpp
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(953,23): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(956,23): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(959,23): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(962,23): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(975,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(976,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(980,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(983,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\14871\Documents\Graphics\FinalProject\Project\main.cpp(984,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  maths_funcs.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 363 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Project.vcxproj -> C:\Users\14871\Documents\Graphics\FinalProject\Project\Release\Project.exe
